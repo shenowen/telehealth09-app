@@ -24,6 +24,8 @@ export default class App extends Component{
       if(user){
         this.setState({ user });
         localStorage.setItem('user', user.uid);
+        console.log({user});
+        console.log("Logged In");
       }else{
         this.setState({ user: null });
         localStorage.removeItem('user');
