@@ -19,7 +19,7 @@ export default class Signup extends Component{
 
     signup(e){
         e.preventDefault();
-        if(this.state.password == this.state.confirm_password){
+        if(this.state.password === this.state.confirm_password){
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) =>{
                 u.user.updateProfile({
                     displayName: this.state.displayName

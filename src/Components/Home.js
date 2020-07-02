@@ -14,7 +14,7 @@ export default class Home extends Component{
         return(
             <div>
                 <h1>
-                    Hello World Telehealth09-app! This is the home/landing page.
+                    Hello World Telehealth09-app! This is the landing page.
                 </h1>
                 <Link to="/login">
                     <Button variant="primary" type="submit" onClick={this.logout}>
