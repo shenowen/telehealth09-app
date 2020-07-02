@@ -38,9 +38,9 @@ export default class Login extends Component{
                         <Form.Label>Password</Form.Label>
                         <Form.Control value={this.state.password} onChange={this.handleChange} type="password" placeholder="Password" name="password"/>
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={this.login}>
-                        Log In
-                    </Button>
+                        <Button variant="primary" type="submit" onClick={this.login}>
+                            Log In
+                        </Button>
                     <Form.Group>
                         <Form.Text>
                                 Not signed up? Sign up here

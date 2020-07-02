@@ -11,16 +11,29 @@ export default class Signup extends Component{
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            confirm_password: '',
+            displayName: ''
         }
     }
 
     signup(e){
         e.preventDefault();
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) =>{          
-            console.log(u);
-            console.log("Signed Up");
-        }).catch((error) =>{console.log(error)});
+        if(this.state.password == this.state.confirm_password){
+            firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) =>{
+                u.user.updateProfile({
+                    displayName: this.state.displayName
+                })
+                alert("Successfully Signed Up! You can now log in.");
+                console.log(u);
+                console.log("Signed Up " + u.user.displayName);
+            }).catch((error) =>{
+                alert(error.message);
+                console.log(error);
+            });
+        }else{
+            alert("Your passwords do not match. Please try again.");
+        }
     }
 
     handleChange(e) {
@@ -31,16 +44,24 @@ export default class Signup extends Component{
         return(
             <div>
                 <Form className='center'>
+                    <Form.Group controlId="formFullName">
+                        <Form.Label>Full Name</Form.Label>
+                        <Form.Control value={this.state.displayName} onChange={this.handleChange} type="displayName" placeholder="Enter your full name" name="displayName"/>
+                    </Form.Group>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control value={this.state.email} onChange={this.handleChange} type="email" placeholder="Enter email" name="email"/>
+                        <Form.Control value={this.state.email} onChange={this.handleChange} type="email" placeholder="Enter your email" name="email"/>
                         <Form.Text className="text-muted">
                         We'll never share your email with anyone else.
                         </Form.Text>
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control value={this.state.password} onChange={this.handleChange} type="password" placeholder="Password" name="password"/>
+                        <Form.Label>Password (Must be at least 6 characters)</Form.Label>
+                        <Form.Control value={this.state.password} onChange={this.handleChange} type="password" placeholder="Enter your password" name="password"/>
+                    </Form.Group>
+                    <Form.Group controlId="formBasicPassword2">
+                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Control value={this.state.confirm_password} onChange={this.handleChange} type="password" placeholder="Enter your password again" name="confirm_password"/>
                     </Form.Group>
                     <Form.Group>
                         <Button variant="primary" type="submit" onClick={this.signup}>
