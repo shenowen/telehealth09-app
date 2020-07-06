@@ -1,4 +1,4 @@
-import React, { Component, useContext } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import firebase from './config/firebase.js';
 import { Container } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import NavigationBar from './Components/NavigationBar.js';
 import Login from './Components/Login.js';
 import Signup from './Components/Signup.js';
 import Home from './Components/Home.js';
+import Survey from './Components/Survey.js';
 
 export default class App extends Component{
   constructor(props){
@@ -37,16 +38,22 @@ export default class App extends Component{
   render(){
     return (
       <div>
-          <NavigationBar displayName= {this.state.user.displayName}/>
+          <NavigationBar user={this.state.user}/>
           <Container className='center-middle'>
-            <Router>
+          <Router>
+            {this.state.user? (
+              <Switch>
+                <Route path="/survey" component={Survey} />
+                <Redirect to="/survey" />
+              </Switch>
+            ):(
                 <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/login" component={Login} />
                   <Route path="/signup" component={Signup} />
-                  {this.state.user ? (<Redirect to="/" />): (<Redirect to="/login" />)}
-                  <Redirect to="/login" />
+                  <Redirect to="/" />
                 </Switch>
+            )}
             </Router>
           </Container>
       </div>

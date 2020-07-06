@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Button } from 'react-bootstrap';
-import firebase from '../config/firebase.js';
+import { Button, Jumbotron } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export default class Home extends Component{
-    logout() {
-        firebase.auth().signOut();
-        console.log("Signed Out");
-    }
-
     render(){
         return(
             <div>
-                <h1>
-                    Hello World Telehealth09-app! This is the landing page.
-                </h1>
-                <Link to="/login">
-                    <Button variant="primary" type="submit" onClick={this.logout}>
-                        Sign out
-                    </Button>
-                </Link>
+                <Jumbotron>
+                <h1>Welcome to Telehealth-09's Product, INSERT NAME HERE!</h1>
+                <p>
+                    Our product aims to create a platform for diabetics to report their health condition that
+                    is seamlessly integrated to their hospital and delivers analytics about their condition 
+                    to doctors and nurses.
+                </p>
+                <p>
+                    <Link to="/signup">
+                        <Button variant="primary" type="submit">
+                            Learn More / Sign Up
+                        </Button>
+                    </Link>
+                </p>
+                </Jumbotron>
             </div>
         );
     }

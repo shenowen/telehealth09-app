@@ -24,7 +24,7 @@ export default class Signup extends Component{
                 u.user.updateProfile({
                     displayName: this.state.displayName
                 })
-                alert("Successfully Signed Up! You can now log in.");
+                alert("Successfully Signed Up! You are now logged in.");
                 console.log(u);
                 console.log("Signed Up " + u.user.displayName);
             }).catch((error) =>{

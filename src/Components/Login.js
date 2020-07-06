@@ -19,7 +19,11 @@ export default class Login extends Component{
         e.preventDefault();
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) =>{          
             console.log(u);
-        }).catch((error) =>{console.log(error)});
+            this.props.history.push("/survey");
+        }).catch((error) =>{
+            alert(error.message);
+            console.log(error);
+        });
     }
 
     handleChange(e) {

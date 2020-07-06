@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Navbar } from 'react-bootstrap';
+import { Button , Navbar } from 'react-bootstrap';
+import firebase from '../config/firebase.js';
+import { Link } from 'react-router-dom';
 
 export default class NavigationBar extends Component{
+    logout() {
+        firebase.auth().signOut();
+        console.log("Signed Out");
+        alert("You have been signed out!");
+    }
+
     render(){
         var userName = localStorage.getItem('user');
         return(
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>Telehealth-09</Navbar.Brand>
                 <Navbar.Toggle />
+                <Navbar.Collapse className="justify-content-middle">
+                    {userName? 
+                        (<Navbar.Text>Signed in as: {userName}</Navbar.Text> ):
+                        (<div />)
+                    }
+                </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                    Signed in as: {userName}
-                    </Navbar.Text>
+                    {userName? 
+                        (<Button variant="primary" type="submit" onClick={this.logout}> Sign out</Button>):
+                        (<div />)
+                    }
                 </Navbar.Collapse>
             </Navbar>
         );
