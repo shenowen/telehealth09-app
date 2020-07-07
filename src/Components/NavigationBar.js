@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Button , Navbar } from 'react-bootstrap';
 import firebase from '../config/firebase.js';
-import { Link } from 'react-router-dom';
 
 export default class NavigationBar extends Component{
     logout() {
