@@ -7,7 +7,7 @@ export default class Survey extends Component{
         return(
             <div>
                 <Jumbotron>
-                <h1>This is the placeholder for the survey view</h1>
+                <h1>This is the placeholder for the survey view :D</h1>
                 </Jumbotron>
             </div>
         );

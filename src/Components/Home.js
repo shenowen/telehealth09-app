@@ -8,7 +8,7 @@ export default class Home extends Component{
         return(
             <div>
                 <Jumbotron>
-                <h1>Welcome to Telehealth-09's Product, INSERT NAME HERE!</h1>
+                <h1>Welcome to Telehealth-09's Product, Prickly Pickle!</h1>
                 <p>
                     Our product aims to create a platform for diabetics to report their health condition that
                     is seamlessly integrated to their hospital and delivers analytics about their condition 

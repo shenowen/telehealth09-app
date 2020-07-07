@@ -12,7 +12,7 @@ export default class NavigationBar extends Component{
     }
 
     render(){
-        var userName = localStorage.getItem('user');
+        var userName = this.props.user.displayName;
         return(
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>Telehealth-09</Navbar.Brand>
