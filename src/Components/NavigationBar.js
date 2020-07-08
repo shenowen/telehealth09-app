@@ -12,19 +12,19 @@ export default class NavigationBar extends Component{
     }
 
     render(){
-        var userName = localStorage.getItem('user');
+        //var userName = localStorage.getItem('user');
         return(
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>Telehealth-09</Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-middle">
-                    {userName? 
-                        (<Navbar.Text>Signed in as: {userName}</Navbar.Text> ):
+                    {this.props.user !== null? 
+                        (<Navbar.Text>Signed in as: {this.props.user.displayName}</Navbar.Text> ):
                         (<div />)
                     }
                 </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
-                    {userName? 
+                    {this.props.user!== null? 
                         (<Button variant="primary" type="submit" onClick={this.logout}> Sign out</Button>):
                         (<div />)
                     }
