@@ -24,7 +24,7 @@ export default class NavigationBar extends Component{
                     }
                 </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
-                    {this.props.user!== null? 
+                    {this.props.user !== null? 
                         (<Button variant="primary" type="submit" onClick={this.logout}> Sign out</Button>):
                         (<div />)
                     }
