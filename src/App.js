@@ -8,7 +8,7 @@ import Login from './Components/Login.js';
 import Signup from './Components/Signup.js';
 import Home from './Components/Home.js';
 import SurveyNav from './Components/SurveyNav.js';
-import SurveyForm from './Components/SurveyForm.js';
+import Survey from './Components/Survey.js';
 import SurveyEducational from './Components/SurveyEducational.js';
 
 export default class App extends Component{
@@ -47,7 +47,9 @@ export default class App extends Component{
               <div>
                 <SurveyNav />
                 <Switch>
-                  <Route path="/survey" component={SurveyForm} />
+                  <Route path="/survey">
+                    <Survey user={this.state.user} />
+                  </Route>
                   <Route path="/educational" component={SurveyEducational} />
                   <Redirect to="/survey" />
                 </Switch>
