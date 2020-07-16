@@ -47,13 +47,33 @@ export default class BasicInfoModal extends Component{
     handleSubmitPatient(e){
         e.preventDefault();
         
-        
-        // Update newAccount field, signifying completion of basic info and consent form, allowing survey form to show
-        db.collection("users").doc(localStorage.getItem('userID')).update({
-            newAccount: false
-        }).then(function(){
-            console.log("CHEESE");
-        });
+        if(this.state.age === ''){
+            alert("Age field is empty. Please enter your age.");
+        }else if(this.state.birthday === ''){
+            alert("Birthday field is empty. Please enter your birthday.");
+        }else if(this.state.height === ''){
+            alert("Height field is empty. Please enter your height.");
+        }else if(this.state.weight === ''){
+            alert("Weight field is empty. Please enter your weight.");
+        }else if(this.state.doctorID === ''){
+            alert("Doctor ID field is empty. Please enter your ID.");
+        }else if(!this.state.checked){
+            alert("Please check the checkbox to consent to HIPPA guidelines.");
+        }else{
+            db.collection("users").doc(localStorage.getItem('userID')).update({
+                age: this.state.age,
+                birthday: this.state.birthday,
+                height: this.state.height,
+                weight: this.state.weight,
+                doctorID: this.state.doctorID,
+                newAccount: false
+            }).catch((error) =>{
+                alert(error.message);
+                console.log(error);
+            }).then(function(){
+                console.log("Patient Basic info updated");
+            });
+        }
     }
 
     handleSubmitDoctor(e){
