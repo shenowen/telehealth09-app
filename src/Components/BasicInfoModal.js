@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import firebase from '../config/firebase.js';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 
 var db = firebase.firestore();
  
@@ -10,15 +10,18 @@ export default class BasicInfoModal extends Component{
     constructor(props){
         super(props);
         this.accountTypeResolver = this.accountTypeResolver.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmitPatient = this.handleSubmitPatient.bind(this);
+        this.handleSubmitDoctor = this.handleSubmitDoctor.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleChecked = this.handleChecked.bind(this);
         this.state = {
             accountType: '',
             age: '',
             birthday: '',
             height: '',
             weight: '',
-            doctorID: ''
+            doctorID: '',
+            checked: false
         }
     }
     
@@ -41,7 +44,7 @@ export default class BasicInfoModal extends Component{
     }
 
 
-    handleSubmit(e){
+    handleSubmitPatient(e){
         e.preventDefault();
         
         
@@ -53,20 +56,71 @@ export default class BasicInfoModal extends Component{
         });
     }
 
+    handleSubmitDoctor(e){
+        e.preventDefault();
+        
+        if(this.state.doctorID === ''){
+            alert("Doctor ID field is empty. Please enter your ID.");
+        }else if(!this.state.checked){
+            alert("Please check the checkbox to consent to HIPPA guidelines.");
+        }else{
+            db.collection("users").doc(localStorage.getItem('userID')).update({
+                doctorID: this.state.doctorID,
+                newAccount: false
+            }).catch((error) =>{
+                alert(error.message);
+                console.log(error);
+            }).then(function(){
+                console.log("Doctor Basic info updated");
+            });
+        }
+    }
+
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value});
+    }
+
+    handleChecked(e) {
+        this.setState({ checked: !this.state.checked });
     }
 
     render(){
         return(
             <div>
-                {this.state.accountType === 'doctor'? (
+                {this.state.accountType === 'patient'? (
                     <Modal show={true} backdrop="static" animation={false} aria-labelledby="contained-modal-title-vcenter" centered size="xl" >
                         <Modal.Header>
                         <Modal.Title>Basic Info and HIPPA Consent Form</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            This is where a shortened Basic info form with just doctor ID and consent will be presented to the doctor
+                            <h5>
+                                Before you get to filling out surveys, we'd like to you to fill out a bit more information about yourself. Please fill out the following form
+                            </h5>
+                            <Form>
+                                <Form.Group controlId="formAge">
+                                    <Form.Label>Age</Form.Label>
+                                    <Form.Control value={this.state.age} onChange={this.handleChange} placeholder="Enter your age" name="age"/>
+                                </Form.Group>
+                                <Form.Group controlId="formBirthday">
+                                    <Form.Label>Birthday (MM/DD/YYYY)</Form.Label>
+                                    <Form.Control value={this.state.birthday} onChange={this.handleChange} placeholder="Enter your birthday" name="birthday"/>
+                                </Form.Group>
+                                <Form.Group controlId="formHeight">
+                                    <Form.Label>Height Feet'Inches"</Form.Label>
+                                    <Form.Control value={this.state.height} onChange={this.handleChange} placeholder="Enter your height" name="height"/>
+                                </Form.Group>
+                                <Form.Group controlId="formWeight">
+                                    <Form.Label>Weight (lbs.)</Form.Label>
+                                    <Form.Control value={this.state.weight} onChange={this.handleChange} placeholder="Enter your weight" name="weight"/>
+                                </Form.Group>
+                                <Form.Group controlId="formDoctorID">
+                                    <Form.Label>Doctor ID</Form.Label>
+                                    <Form.Control value={this.state.doctorID} onChange={this.handleChange} placeholder="Enter your doctor ID" name="doctorID"/>
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Check type="checkbox" onChange={this.handleChecked} label="Consent to sharing your data in line with HIPPA regulations and guidelines" />
+                                </Form.Group>
+                            </Form>
                         </Modal.Body>
                         <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleSubmit}>
@@ -77,15 +131,24 @@ export default class BasicInfoModal extends Component{
                 ):(
                     <Modal show={true} backdrop="static" animation={false} aria-labelledby="contained-modal-title-vcenter" centered size="xl" >
                         <Modal.Header>
-                        <Modal.Title>Basic Info and HIPPA Consent Form</Modal.Title>
+                        <Modal.Title>Basic Info and HIPPA Consent Form (Doctor)</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            Before you get to filling out surveys, we'd like to you to fill out a bit more information about yourself.
-                            Currently, I will close this modal by updating the firebase database newAccount boolean to display the survey form
-                            when you click submit, but I will later close the modal when all basic info can be submitted.
+                            <h5>
+                                Please fill out the following form to view survey responses from your patients
+                            </h5>
+                            <Form>
+                                <Form.Group controlId="formDoctorID">
+                                    <Form.Label>Doctor ID</Form.Label>
+                                    <Form.Control value={this.state.doctorID} onChange={this.handleChange} type="text" required={true} placeholder="Enter your doctor ID" name="doctorID"/>
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Check type="checkbox" onChange={this.handleChecked} label="Consent to HIPPA regulations and guidelines" />
+                                </Form.Group>
+                            </Form>
                         </Modal.Body>
                         <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleSubmit}>
+                        <Button variant="secondary" onClick={this.handleSubmitDoctor}>
                             Submit
                         </Button>
                         </Modal.Footer>

@@ -39,7 +39,7 @@ export default class Signup extends Component{
                 //console.log("Signed Up as " + this.state.accountType);
             }).catch((error) =>{
                 alert(error.message);
-                console.log(error);
+                //console.log(error);
             });
         }else{
             alert("Your passwords do not match. Please try again.");
@@ -56,7 +56,7 @@ export default class Signup extends Component{
                 <Form className='center'>
                     <Form.Group controlId="formFullName">
                         <Form.Label>Full Name</Form.Label>
-                        <Form.Control value={this.state.displayName} onChange={this.handleChange} type="displayName" placeholder="Enter your full name" name="displayName"/>
+                        <Form.Control value={this.state.displayName} onChange={this.handleChange} required type="text" placeholder="Enter your full name" name="displayName"/>
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
