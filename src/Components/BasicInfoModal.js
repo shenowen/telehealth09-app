@@ -143,7 +143,7 @@ export default class BasicInfoModal extends Component{
                             </Form>
                         </Modal.Body>
                         <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleSubmit}>
+                        <Button variant="secondary" onClick={this.handleSubmitPatient}>
                             Submit
                         </Button>
                         </Modal.Footer>
