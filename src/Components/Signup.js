@@ -13,7 +13,8 @@ export default class Signup extends Component{
             email: '',
             password: '',
             confirm_password: '',
-            displayName: ''
+            displayName: '',
+            accountType: 'patient'
         }
     }
 
@@ -24,12 +25,21 @@ export default class Signup extends Component{
                 u.user.updateProfile({
                     displayName: this.state.displayName
                 })
+                //Adding accountType and newUser to database
+                var db = firebase.firestore();
+                db.collection("users").doc(u.user.uid).set({
+                    email: this.state.email,
+                    accountType: this.state.accountType,
+                    newAccount: true
+                });
+
                 alert("Successfully Signed Up! You are now logged in.");
-                console.log(u);
+                //console.log(u);
                 console.log("Signed Up " + u.user.displayName);
+                //console.log("Signed Up as " + this.state.accountType);
             }).catch((error) =>{
                 alert(error.message);
-                console.log(error);
+                //console.log(error);
             });
         }else{
             alert("Your passwords do not match. Please try again.");
@@ -46,7 +56,7 @@ export default class Signup extends Component{
                 <Form className='center'>
                     <Form.Group controlId="formFullName">
                         <Form.Label>Full Name</Form.Label>
-                        <Form.Control value={this.state.displayName} onChange={this.handleChange} type="displayName" placeholder="Enter your full name" name="displayName"/>
+                        <Form.Control value={this.state.displayName} onChange={this.handleChange} required type="text" placeholder="Enter your full name" name="displayName"/>
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
@@ -62,6 +72,13 @@ export default class Signup extends Component{
                     <Form.Group controlId="formBasicPassword2">
                         <Form.Label>Confirm Password</Form.Label>
                         <Form.Control value={this.state.confirm_password} onChange={this.handleChange} type="password" placeholder="Enter your password again" name="confirm_password"/>
+                    </Form.Group>
+                    <Form.Group controlId="formAccountType">
+                        <Form.Label>I am a:</Form.Label>
+                        <Form.Control as="select" custom defaultValue="patient" value={this.state.value} name="accountType" onChange={this.handleChange}>
+                            <option value="patient">Patient</option>
+                            <option value="doctor">Doctor/Hospital</option>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group>
                         <Button variant="primary" type="submit" onClick={this.signup}>

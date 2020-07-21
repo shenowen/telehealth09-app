@@ -7,7 +7,9 @@ import NavigationBar from './Components/NavigationBar.js';
 import Login from './Components/Login.js';
 import Signup from './Components/Signup.js';
 import Home from './Components/Home.js';
+import SurveyNav from './Components/SurveyNav.js';
 import Survey from './Components/Survey.js';
+import SurveyMiscellaneous from './Components/SurveyMiscellaneous.js';
 
 export default class App extends Component{
   constructor(props){
@@ -40,23 +42,29 @@ export default class App extends Component{
     return (
       <div>
           <NavigationBar user={this.state.user}/>
-          <Container className='center-middle'>
           <Router>
             {this.state.user? (
-              <Switch>
-                <Route path="/survey" component={Survey} />
-                <Redirect to="/survey" />
-              </Switch>
+              <div>
+                <SurveyNav />
+                <Switch>
+                  <Route path="/survey">
+                    <Survey user={this.state.user} />
+                  </Route>
+                  <Route path="/misc" component={SurveyMiscellaneous} />
+                  <Redirect to="/survey" />
+                </Switch>
+              </div>
             ):(
+              <Container className='center-middle'>
                 <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/login" component={Login} />
                   <Route path="/signup" component={Signup} />
                   <Redirect to="/" />
                 </Switch>
+              </Container>
             )}
             </Router>
-          </Container>
       </div>
     );
   }
