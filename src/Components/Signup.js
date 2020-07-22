@@ -3,6 +3,7 @@ import '../App.css';
 import { Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import firebase from '../config/firebase.js';
+import sanalogo from './Assets/sana_icon.png';
 
 export default class Signup extends Component{
     constructor(props){
@@ -54,6 +55,7 @@ export default class Signup extends Component{
         return(
             <div>
                 <Form className='center'>
+                    <img src={sanalogo} width="112" height="100" style={{marginBottom:"1rem"}}/>
                     <Form.Group controlId="formFullName">
                         <Form.Label>Full Name</Form.Label>
                         <Form.Control value={this.state.displayName} onChange={this.handleChange} required type="text" placeholder="Enter your full name" name="displayName"/>
