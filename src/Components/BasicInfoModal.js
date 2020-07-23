@@ -72,6 +72,7 @@ export default class BasicInfoModal extends Component{
                 console.log(error);
             }).then(function(){
                 console.log("Patient Basic info updated");
+                alert("Basic info form submitted! Please refresh the page.")
             });
         }
     }
