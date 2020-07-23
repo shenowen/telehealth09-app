@@ -3,6 +3,7 @@ import '../App.css';
 import { Form, Button } from 'react-bootstrap';
 import firebase from '../config/firebase.js';
 import { Link } from 'react-router-dom';
+import sanafull from './Assets/sana_full.png';
 
 export default class Login extends Component{
     constructor(props){
@@ -34,6 +35,7 @@ export default class Login extends Component{
         return(
             <div>
                 <Form className='center'>
+                    <img alt="" src={sanafull} width="403" height="177" style={{marginBottom:"1rem"}}/>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control value={this.state.email} onChange={this.handleChange} type="email" placeholder="Enter email" name="email"/>

@@ -107,7 +107,6 @@ export default class BasicInfoModal extends Component{
     render(){
         return(
             <div>
-                {this.state.accountType === 'patient'? (
                     <Modal show={true} backdrop="static" animation={false} aria-labelledby="contained-modal-title-vcenter" centered size="xl" >
                         <Modal.Header>
                         <Modal.Title>Basic Info and HIPPA Consent Form</Modal.Title>
@@ -148,7 +147,12 @@ export default class BasicInfoModal extends Component{
                         </Button>
                         </Modal.Footer>
                     </Modal>
-                ):(
+            </div>
+        );
+    }
+}
+
+/*{this.state.accountType? ():(
                     <Modal show={true} backdrop="static" animation={false} aria-labelledby="contained-modal-title-vcenter" centered size="xl" >
                         <Modal.Header>
                         <Modal.Title>Basic Info and HIPPA Consent Form (Doctor)</Modal.Title>
@@ -173,8 +177,4 @@ export default class BasicInfoModal extends Component{
                         </Button>
                         </Modal.Footer>
                     </Modal>
-                )}
-            </div>
-        );
-    }
-}
+                )}*/

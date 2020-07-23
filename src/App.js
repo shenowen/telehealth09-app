@@ -9,7 +9,7 @@ import Signup from './Components/Signup.js';
 import Home from './Components/Home.js';
 import SurveyNav from './Components/SurveyNav.js';
 import Survey from './Components/Survey.js';
-import SurveyMiscellaneous from './Components/SurveyMiscellaneous.js';
+import SurveyConnect from './Components/SurveyConnect.js';
 
 export default class App extends Component{
   constructor(props){
@@ -29,11 +29,11 @@ export default class App extends Component{
         this.setState({ user });
         localStorage.setItem('user', user.displayName);
         localStorage.setItem('userID', user.uid);
-        console.log({user});
-        console.log("Logged In");
+        //console.log({user});
+        //console.log("Logged In");
       }else{
         this.setState({ user: null });
-        localStorage.removeItem('user');
+        localStorage.clear();
       }
     })
   }
@@ -50,7 +50,7 @@ export default class App extends Component{
                   <Route path="/survey">
                     <Survey user={this.state.user} />
                   </Route>
-                  <Route path="/misc" component={SurveyMiscellaneous} />
+                  <Route path="/connect" component={SurveyConnect} />
                   <Redirect to="/survey" />
                 </Switch>
               </div>

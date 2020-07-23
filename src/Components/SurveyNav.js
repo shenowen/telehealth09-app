@@ -12,7 +12,7 @@ export default class SurveyNav extends Component{
                         <Nav.Link as={Link} to="/survey">Survey</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link as={Link} to="/misc">Miscellaneous</Nav.Link>
+                        <Nav.Link as={Link} to="/connect">Connect</Nav.Link>
                     </Nav.Item>
                 </Nav>
             </div> 
