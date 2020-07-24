@@ -1,3 +1,5 @@
+Welcome to Telehealth 09's Product Sana. This is the git repository for the webapp, which has implemented the signup, login, and primary survey workflow of the patient.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
